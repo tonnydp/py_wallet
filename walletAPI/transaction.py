@@ -8,12 +8,19 @@ import math
 url = "https://walletapi.onethingpcs.com"
 headers = {'Content-Type':'application/json'}
 
-def getTransactionRecords(url, address, page_index):
+def getTransactionRecords(address, page_index):
 	method = "getTransactionRecords"
-	url = "%s/%s" % (url, method)
+	new_url = "%s/%s" % (url, method)
 	data = [address, "0", "0", str(page_index), "10"]
-	r = requests.post(url, data=json.dumps(data), headers=headers)
+	r = requests.post(new_url, data=json.dumps(data), headers=headers)
 	rps_dict = json.loads(r.text)
+	while "totalnum" not in rps_dict or "result" not in rps_dict:
+		print(rps_dict)
+		time.sleep(5)
+		print("SLEEP 5 SEC...")
+		r = requests.post(new_url, data=json.dumps(data), headers=headers)
+		rps_dict = json.loads(r.text)
+
 	totalnum = int(rps_dict["totalnum"])
 	record_list = []
 	for rc in rps_dict["result"]:
@@ -23,7 +30,7 @@ def getTransactionRecords(url, address, page_index):
 		record_list.append(rc)
 	return (totalnum, record_list)
 
-def getTrasactionCount(url, address):
+def getTrasactionCount(address):
 	method = "eth_getTransactionCount"
 	data = {
 		"jsonrpc": "2.0",
