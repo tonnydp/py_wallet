@@ -1,13 +1,10 @@
 import walletAPI.transaction as transaction
 
 
-url = "https://walletapi.onethingpcs.com"
-
 
 address = "0x909e7ccf55c48896726901d62d425d57de55dd1c"
 #address = "0x19dd62d228e651968e95f317f4e91bd72fd5e67e"
 page_index = 1
-count = 1
 while True:
 	(totalnum, r_list) = transaction.getTransactionRecords(url, address, page_index)
 

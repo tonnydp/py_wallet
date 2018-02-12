@@ -5,6 +5,7 @@ import struct
 from decimal import *
 import math 
 
+url = "https://walletapi.onethingpcs.com"
 headers = {'Content-Type':'application/json'}
 
 def getTransactionRecords(url, address, page_index):
