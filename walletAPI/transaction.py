@@ -5,6 +5,8 @@ import struct
 from decimal import *
 import math 
 
+headers = {'Content-Type':'application/json'}
+
 def getTransactionRecords(url, address, page_index):
 	method = "getTransactionRecords"
 	url = "%s/%s" % (url, method)

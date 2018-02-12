@@ -1,8 +1,8 @@
-import transaction
+import walletAPI.transaction as transaction
 
 
 url = "https://walletapi.onethingpcs.com"
-headers = {'Content-Type':'application/json'}
+
 
 address = "0x909e7ccf55c48896726901d62d425d57de55dd1c"
 #address = "0x19dd62d228e651968e95f317f4e91bd72fd5e67e"
