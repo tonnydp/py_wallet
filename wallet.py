@@ -3,10 +3,22 @@ from sqlAPI.sql import MySQL
 
 
 mysql = MySQL("../data/transaction.db")
+#intel main
 #address = "0x909e7ccf55c48896726901d62d425d57de55dd1c"
-address = "0x19dd62d228e651968e95f317f4e91bd72fd5e67e"
-page_index = 1316
-totalnum = 13180
+
+
+#0服充值地址
+#address = "0x19dd62d228e651968e95f317f4e91bd72fd5e67e"
+
+
+#wkc服充值地址
+address = "0x6a4de14655825e489d97e0dc470b7e898d80e786"
+#wkc提现地址
+#address = "0xe1dd6b04fe242ec45ca0e994dfc517af672c929b"
+
+
+page_index = 1734
+totalnum = page_index * 10 + 2
 while True:
 	if page_index * 10 >= totalnum:
 		break

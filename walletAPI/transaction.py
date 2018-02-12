@@ -12,14 +12,12 @@ def getTransactionRecords(address, page_index):
 	method = "getTransactionRecords"
 	new_url = "%s/%s" % (url, method)
 	data = [address, "0", "0", str(page_index), "10"]
-	r = requests.post(new_url, data=json.dumps(data), headers=headers)
-	rps_dict = json.loads(r.text)
+	rps_dict = makeRequest(new_url, data, headers)
 	while "totalnum" not in rps_dict or "result" not in rps_dict:
 		print(rps_dict)
-		time.sleep(5)
 		print("SLEEP 5 SEC...")
-		r = requests.post(new_url, data=json.dumps(data), headers=headers)
-		rps_dict = json.loads(r.text)
+		time.sleep(5)
+		rps_dict = makeRequest(new_url, data, headers)
 
 	totalnum = int(rps_dict["totalnum"])
 	record_list = []
@@ -38,11 +36,20 @@ def getTrasactionCount(address):
 		"params": [address, "pending"],
 		"id": 1
 		}
-	r = requests.post(url, data=json.dumps(data), headers=headers)
-	response_json = r.text
-	rps_dict = json.loads(response_json)
+	rps_dict = makeRequest(url, data, headers)
 	num = int(rps_dict["result"], 16)
 	return num
+
+def makeRequest(url, data, headers):
+	while True:
+		try:
+			r = requests.post(url, data=json.dumps(data), headers=headers)
+			rps_dict = json.loads(r.text)
+			return rps_dict
+		except Exception as e:
+			print(e)
+			print("Wait for Network Recover...")
+			time.sleep(10)
 
 def amountConvert(amount_str):
 	amount_hex = amount_str.replace("0x", "")
